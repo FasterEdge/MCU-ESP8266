@@ -1,0 +1,86 @@
+# ============================================
+# MCU 嵌入式项目（C/C++ / 汇编）
+# ============================================
+
+# 编译产物
+*.o
+*.obj
+*.elf
+*.hex
+*.bin
+*.map
+*.lst
+*.sym
+*.a
+*.lib
+*.out
+*.d
+*.su
+*.user
+
+# 构建目录
+/build/
+/bin/
+/Debug/
+/Release/
+/CMakeFiles/
+/cmake-build-*/
+
+# 烧录 / 调试
+*.jlink
+*.bak
+*.cproject
+*.project
+*.scvd
+
+# Keil / IAR / STM32CubeIDE
+/DebugConfig/
+/Listings/
+/Objects/
+/EWARM/
+/Keil/
+/*.uvguix.*
+/*.uvopt
+/*.uvproj.user
+
+# ============================================
+# OS / Editor / IDE 噪音
+# ============================================
+
+# macOS Finder
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows Explorer
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+
+# Linux trash
+.Trash-*
+
+# Editors / IDE
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+.vscode/
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+
+# Logs / runtime
+*.log
+logs/
+tmp/
+temp/
+
+# Git worktrees
+.worktrees/
