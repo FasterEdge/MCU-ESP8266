@@ -1,47 +1,37 @@
 # ============================================
-# MCU 嵌入式项目（C/C++ / 汇编）
+# ESP8266 嵌入式项目（Arduino / PlatformIO / ESP-IDF）
 # ============================================
+
+# Arduino
+*.ino.user
+*.ino.bak
+/build/
+/ArduinoOutput/
+
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
+.vscode/extensions.json
+
+# ESP-IDF
+/build/
+/sdkconfig
+/sdkconfig.old
+/managed_components/
+/dependencies.lock
 
 # 编译产物
 *.o
 *.obj
 *.elf
-*.hex
 *.bin
 *.map
-*.lst
-*.sym
 *.a
 *.lib
 *.out
 *.d
 *.su
-*.user
-
-# 构建目录
-/build/
-/bin/
-/Debug/
-/Release/
-/CMakeFiles/
-/cmake-build-*/
-
-# 烧录 / 调试
-*.jlink
-*.bak
-*.cproject
-*.project
-*.scvd
-
-# Keil / IAR / STM32CubeIDE
-/DebugConfig/
-/Listings/
-/Objects/
-/EWARM/
-/Keil/
-/*.uvguix.*
-/*.uvopt
-/*.uvproj.user
 
 # ============================================
 # OS / Editor / IDE 噪音
