@@ -286,6 +286,46 @@ void fe_port_tcp_close(void) {
 }
 
 // ============================================================
+// GPIO（NONOS SDK gpio.h 寄存器）
+// ============================================================
+#include "gpio.h"
+
+int fe_port_gpio_set_mode(uint8_t pin, const char *mode) {
+    if (pin > 16) return -1;
+    PIN_FUNC_SELECT(GPIO_PIN_TO_FUNC(pin), PIN_FUNC_GPIO);
+    if (strcmp(mode, "input") == 0 || strcmp(mode, "input_pullup") == 0) {
+        GPIO_REG_WRITE(GPIO_ENABLE_W1TC_ADDRESS, 1 << pin);   // 输入
+        if (strcmp(mode, "input_pullup") == 0)
+            GPIO_REG_WRITE(GPIO_PIN_ADDR(pin), GPIO_PIN_PULLUP);
+    } else if (strcmp(mode, "output") == 0) {
+        GPIO_REG_WRITE(GPIO_ENABLE_W1TS_ADDRESS, 1 << pin);   // 输出
+    } else {
+        return -1;
+    }
+    return 0;
+}
+
+int fe_port_gpio_write(uint8_t pin, uint8_t level) {
+    if (pin > 16) return -1;
+    GPIO_REG_WRITE(GPIO_OUT_W1TS_ADDRESS, 1 << pin);
+    if (!level) GPIO_REG_WRITE(GPIO_OUT_W1TC_ADDRESS, 1 << pin);
+    return 0;
+}
+
+int fe_port_gpio_read(uint8_t pin) {
+    if (pin > 16) return -1;
+    return (GPIO_REG_READ(GPIO_IN_ADDRESS) >> pin) & 1;
+}
+
+// ============================================================
+// 芯片信息
+// ============================================================
+void fe_port_chip_info(char *out, size_t outlen) {
+    snprintf(out, outlen, "{\"chip\":\"ESP8266\",\"chipId\":%lu,\"freqMHz\":%lu}",
+             (unsigned long)system_get_chip_id(), (unsigned long)system_get_cpu_freq());
+}
+
+// ============================================================
 // 延时
 // ============================================================
 void fe_port_delay_ms(uint32_t ms) {

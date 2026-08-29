@@ -109,6 +109,30 @@ pio device monitor # serial monitor
 
 > Unlike `arduino/` (Arduino C++ framework), this version is a pure-C implementation on the NONOS SDK framework; serial commands are identical. For full reception, call `fe_port_uart_put_byte` from the SDK UART interrupt to fill the ring buffer.
 
+### 6-c. MCU-Specific Modules
+
+Beyond the main-repo capabilities, this repo adds 3 **MCU-specific** modules (registers / GPIO / chip info), identical across all three builds; platform differences are isolated behind the Arduino API or `fe_port` primitives:
+
+| Module | Type | Commands | Description |
+|--------|------|----------|-------------|
+| RegAbility | Ability | `read <addr>` / `write <addr>,<value>` / `bit_set <addr>,<bit>` / `bit_clear <addr>,<bit>` / `info` | Direct read/write of memory-mapped peripheral registers (32-bit, volatile pointer) |
+| GpioAbility | Ability | `mode <pin>,<input|output|input_pullup>` / `write <pin>,<0|1>` / `read <pin>` / `info` | Pin mode / output / input (GPIO0-16) |
+| ChipData | Data | `info` | Chip ID / freq (NONOS `system_get_chip_id`) |
+
+**Examples:**
+
+```
+ability_RegAbility read 0x60000300
+ability_RegAbility write 0x60000300,0x12345678
+ability_RegAbility bit_set 0x60000300,7
+ability_GpioAbility mode 2,output
+ability_GpioAbility write 2,1
+ability_GpioAbility read 2
+data_ChipData info
+```
+
+> ⚠️ Register access touches hardware directly; a wrong write may crash the system. Debug/low-level use only.
+
 ### 7. Correspondence with the Main Repo
 
 - Command names are **identical** to the main repo, structurally identical to MCU-ESP32
