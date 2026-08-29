@@ -92,7 +92,7 @@ data_NetMapData info
 
 > 说明：ESP8266 为 Xtensa 内核，Keil MDK 主要面向 ARM Cortex-M。若用 Keil 编译，可将 `fe_port.c` 的 TODO 替换为 NONOS SDK API（末尾附参考），或在其他 Cortex-M MCU 上直接复用本框架。
 
-### 六-b、PlatformIO IDE 版使用（VS Code 插件）
+### 七、PlatformIO IDE 版使用（VS Code 插件）
 
 `platformio_ide/` 是 **裸机 C + ESP8266 NONOS SDK 框架** 工程，复用 keil 版 C 代码，`fe_port.c` 为真实 NONOS SDK 实现（UART 环形缓冲 / system_param 存储 / SNTP / os_random / espconn TCP），无需 Keil 即可在 VS Code 中编译烧录。
 
@@ -109,7 +109,7 @@ pio device monitor # 串口监视
 
 > 与 `arduino/`（Arduino C++ 框架）不同，本版为 ESP8266 NONOS SDK 框架的纯 C 实现；串口命令格式完全一致。完整接收请在 SDK 的 UART 中断中调用 `fe_port_uart_put_byte` 填充缓冲。
 
-### 六-b、MCU 专有模块
+### 八、MCU 专有模块
 
 除主仓库对应能力外，本仓库提供 3 个 **MCU 专有** 模块（寄存器 / GPIO / 芯片信息），三套代码（arduino / keil / platformio_ide）完全同构，平台差异由 Arduino API 或 `fe_port` 原语隔离：
 
@@ -133,13 +133,13 @@ data_ChipData info
 
 > ⚠️ 寄存器操作直接访问硬件，误写可能导致系统异常，仅供调试/底层驱动使用。
 
-### 七、与 FasterEdge 主仓库的对应关系
+### 九、与 FasterEdge 主仓库的对应关系
 
 - 命令名与主仓库**完全一致**，与 MCU-ESP32 实现同构
 - 令牌/密钥持久化（ESP8266 使用 Arduino 内置 `Preferences`/EEPROM 模拟 NVS）
 - 严格类型校验保留
 
-### 八、姊妹项目
+### 十、姊妹项目
 
 - **[FasterEdge MCU - ESP32](https://github.com/FasterEdge/MCU-ESP32)**：双核、更多 UART、BLE 等更强平台
 - **[FasterEdge](https://github.com/FasterEdge/FasterEdge)**：框架主仓库
