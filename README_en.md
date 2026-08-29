@@ -47,7 +47,15 @@ MCU-ESP8266/
     ├── Ability/                # ability_*.c (9)
     ├── Data/                   # data_*.c (4)
     └── User/                   # main.c / register.c / fe_port.c
+
+platformio_ide/                # VS Code + PlatformIO plugin project (ESP8266 NONOS SDK framework)
+    ├── platformio.ini          # espressif8266 / esp8266-nonos-sdk / esp12e
+    ├── .vscode/extensions.json # recommends PlatformIO IDE
+    ├── include/                # fe.h / fe_ability.h / fe_data.h / fe_port.h / fe_hmac_sha256.h
+    └── src/                    # reuses keil bare-metal C + real NONOS SDK fe_port
 ```
+
+> Three build routes, three toolchains: `arduino/` (Arduino C++), `keil/` (Keil MDK), `platformio_ide/` (VS Code PlatformIO plugin + NONOS SDK); same commands.
 
 ### 5. Arduino Version
 
@@ -83,6 +91,23 @@ data_NetMapData info
 3. Build, flash, and use the same serial command format
 
 > Note: ESP8266 uses the Xtensa core while Keil MDK mainly targets ARM Cortex-M. For Keil builds, replace the TODOs in `fe_port.c` with NONOS SDK APIs, or reuse this framework on other Cortex-M MCUs.
+
+### 6-b. PlatformIO IDE Version (VS Code plugin)
+
+`platformio_ide/` is a **bare-metal C + ESP8266 NONOS SDK framework** project that reuses the keil C code with a real NONOS SDK `fe_port.c` (UART ring buffer / system_param storage / SNTP / os_random / espconn TCP). No Keil needed — build and flash right from VS Code.
+
+1. Install the **PlatformIO IDE** extension in VS Code (prompted when opening `platformio_ide/`)
+2. Open the `platformio_ide/` directory
+3. Click **Build** / **Upload** / **Serial Monitor** (115200) in the status bar
+
+```bash
+cd platformio_ide
+pio run            # build
+pio run -t upload  # flash
+pio device monitor # serial monitor
+```
+
+> Unlike `arduino/` (Arduino C++ framework), this version is a pure-C implementation on the NONOS SDK framework; serial commands are identical. For full reception, call `fe_port_uart_put_byte` from the SDK UART interrupt to fill the ring buffer.
 
 ### 7. Correspondence with the Main Repo
 
