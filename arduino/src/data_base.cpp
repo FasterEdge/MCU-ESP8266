@@ -20,7 +20,7 @@ CommandOutput baseDataDispatch(void *inst, const char *act, const String &args) 
     if (strcmp(act, "info") == 0) {
         // ESP8266 为单核，无需 getChipCores()
         return CommandOutput{String(act),
-            String("{\"name\":\"BaseData\",\"firmware\":\"FasterEdge-MCU 1.0.20260829\","
+            String("{\"name\":\"BaseData\",\"firmware\":\"FasterEdge-MCU 1.0.20260831\","
                    "\"chip\":\"ESP8266\",\"sdk\":\"Arduino\",\"cores\":1"
                    ",\"freq\":" + String(ESP.getCpuFreqMHz()) + "}"), String()};
     }
