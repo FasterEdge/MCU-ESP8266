@@ -1,7 +1,7 @@
 // fe_port.c — FasterEdge MCU 平台移植层（ESP8266 / NONOS SDK 版）
 // 用于 platformio_ide 工程（VS Code + PlatformIO 插件）：
 //   platform = espressif8266, framework = esp8266-nonos-sdk
-// 本文件是 keil 版 TODO 移植层的真实实现：
+// 本文件是 keil 版移植模板对应的真实实现：
 //   UART  -> driver/uart.h（收：应用层环形缓冲，由 SDK RX 中断回调填充）
 //   存储   -> system_param_save/load（flash 参数区）
 //   时间   -> system_get_time + sntp
