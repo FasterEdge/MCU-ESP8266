@@ -1,3 +1,7 @@
+/* FasterEdge 开源项目
+ * GitHub: https://github.com/FasterEdge
+ * Gitee:  https://gitee.com/FasterEdge
+ */
 // fe_port.c — FasterEdge MCU 平台移植层（ESP8266 / NONOS SDK 版）
 // 用于 platformio_ide 工程（VS Code + PlatformIO 插件）：
 //   platform = espressif8266, framework = esp8266-nonos-sdk
