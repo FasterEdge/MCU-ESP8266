@@ -1,3 +1,8 @@
+// ─────────────────────────────────────────────────────────────
+// FasterEdge 开源项目
+// Github: https://github.com/FasterEdge
+// Gitee:  https://gitee.com/FasterEdge
+// ─────────────────────────────────────────────────────────────
 // ability_role.c — RoleAbility 实现（Keil/裸机 C 版）
 // describe / set_role / get_role
 #include "fe_ability.h"

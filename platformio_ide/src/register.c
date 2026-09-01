@@ -1,3 +1,8 @@
+// ─────────────────────────────────────────────────────────────
+// FasterEdge 开源项目
+// Github: https://github.com/FasterEdge
+// Gitee:  https://gitee.com/FasterEdge
+// ─────────────────────────────────────────────────────────────
 // register.c — 注册全部 Data / Ability 到全局 Atom（Keil/裸机 C 版）
 #include "fe.h"
 #include "fe_ability.h"
