@@ -92,9 +92,9 @@ void user_init(void) {
 
             out = fe_execute(fe_global_atom(), target, act, args ? args : "");
             if (out.ok)
-                os_sprintf(oline, "OK %s -> %s\n", out.name, out.value);
+                os_snprintf(oline, sizeof(oline), "OK %s -> %s\n", out.name, out.value);
             else
-                os_sprintf(oline, "ERR %s: %s\n", out.name, out.err);
+                os_snprintf(oline, sizeof(oline), "ERR %s: %s\n", out.name, out.err);
             fe_port_uart_write(0, (const uint8_t *)oline, strlen(oline));
         }
         fe_port_delay_ms(10);
