@@ -2,7 +2,12 @@
 // data_config.cpp — ConfigData 实现（Arduino 版）
 // 扁平点号路径 KV 配置：get / set / delete / list / snapshot
 #include "fe_data.h"
+// ESP8266 无 NVS/Preferences 库: 用 EEPROM 兼容封装(见 fe_prefs_esp8266.h)
+#if defined(ESP8266)
+#include "fe_prefs_esp8266.h"
+#else
 #include <Preferences.h>
+#endif
 
 namespace fe {
 

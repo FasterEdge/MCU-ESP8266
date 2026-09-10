@@ -2,9 +2,20 @@
 // ability_time.cpp — TimeAbility 实现（Arduino 版）
 // sync_net / sync_manual / sync_system / sync_ntp / get_time / configure_run
 #include "fe_ability.h"
+// ESP8266 无 NVS/Preferences 库: 用 EEPROM 兼容封装(见 fe_prefs_esp8266.h)
+#if defined(ESP8266)
+#include "fe_prefs_esp8266.h"
+#else
 #include <Preferences.h>
+#endif
 #include <errno.h>
 #include <limits.h>
+
+// ESP8266: settimeofday 实现在 core 的 time.cpp(extern "C"), 但无头文件声明, 需手动前置声明
+#if defined(ESP8266)
+#include <sys/time.h>
+extern "C" int settimeofday(const struct timeval *tv, const struct timezone *tz);
+#endif
 
 namespace fe {
 

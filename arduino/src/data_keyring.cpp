@@ -5,7 +5,12 @@
 // NVS（Preferences）持久化。令牌逻辑复用 HMAC-SHA256（见 fe_hmac_sha256.h）。
 #include "fe_data.h"
 #include "fe_hmac_sha256.h"
+// ESP8266 无 NVS/Preferences 库: 用 EEPROM 兼容封装(见 fe_prefs_esp8266.h)
+#if defined(ESP8266)
+#include "fe_prefs_esp8266.h"
+#else
 #include <Preferences.h>
+#endif
 
 namespace fe {
 

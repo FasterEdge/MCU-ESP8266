@@ -2,7 +2,12 @@
 // ability_config.cpp — ConfigFileAbility 实现（Arduino 版）
 // load / save / set_path / get_path / exists; explicit registry supports full snapshots.
 #include "fe_ability.h"
+// ESP8266 无 NVS/Preferences 库: 用 EEPROM 兼容封装(见 fe_prefs_esp8266.h)
+#if defined(ESP8266)
+#include "fe_prefs_esp8266.h"
+#else
 #include <Preferences.h>
+#endif
 
 namespace fe {
 

@@ -11,7 +11,7 @@ CommandOutput chipDataDispatch(void *inst, const char *act, const String &args) 
     if (strcmp(act, "info") == 0) {
         String out = String("{\"name\":\"ChipData\",\"chip\":\"ESP8266\","
                             "\"chipId\":" + String((unsigned long)ESP.getChipId()) + ",");
-        out += "\"cores\":" + String(ESP.getChipCores()) + ",";
+        out += "\"cores\":" + String(1) + ",";   // ESP8266 单核(getChipCores 为 ESP32 API)
         out += "\"freqMhz\":" + String(ESP.getCpuFreqMHz()) + ",";
         out += "\"flashBytes\":" + String((unsigned long)ESP.getFlashChipSize()) + "}";
         return CommandOutput{String(act), out, String()};

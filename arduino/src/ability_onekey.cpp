@@ -3,7 +3,12 @@
 // issue_token / verify_token / revoke_token / revoke_all / list_tokens / status / rotate
 #include "fe_ability.h"
 #include "fe_hmac_sha256.h"
+// ESP8266 无 NVS/Preferences 库: 用 EEPROM 兼容封装(见 fe_prefs_esp8266.h)
+#if defined(ESP8266)
+#include "fe_prefs_esp8266.h"
+#else
 #include <Preferences.h>
+#endif
 
 namespace fe {
 
