@@ -116,13 +116,15 @@ static int find_slot(const char *key) {
 }
 
 static void norm_key(const char *in, char *out) {
-    size_t n = 0;
-    for (const char *p = in; *p && n + 1 < PARAM_NAME_LEN; p++) {
+    // 完整 key 的 FNV-1a 32 位散列 → "k" + 8 hex(10 字符, 满足 PARAM_NAME_LEN=16)。
+    // 旧实现截断到 15 字符, 前 15 字符相同的两个 key 会静默映射到同一参数槽互相覆盖。
+    uint32_t h = 2166136261u;
+    for (const char *p = in; *p; p++) {
         char c = *p;
         if (c == '.' || c == '/') c = '_';
-        out[n++] = c;
+        h = (h ^ (uint8_t)c) * 16777619u;
     }
-    out[n] = 0;
+    snprintf(out, PARAM_NAME_LEN, "k%08lx", (unsigned long)h);
 }
 
 bool fe_port_nvs_get_str(const char *ns, const char *key, char *out, size_t outlen) {
