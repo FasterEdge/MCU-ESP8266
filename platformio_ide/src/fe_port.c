@@ -263,8 +263,11 @@ int fe_port_tcp_connect(const char *host, uint16_t port) {
     s_connected = false;
     s_op_done = false;
     if (espconn_connect(&s_conn) != ESPCONN_OK) return -1;
-    // 等待 connect 回调（NONOS SDK 回调在系统 tick 中触发）
-    while (!s_op_done) os_delay_us(1000);
+    // 等待 connect 回调（NONOS SDK 回调在系统 tick 中触发）; 3s 超时防永久挂起
+    {
+        uint32_t tmo = 3000;   // 3000 x 1ms
+        while (!s_op_done && tmo-- > 0) os_delay_us(1000);
+    }
     return s_connected ? 0 : -1;
 }
 
@@ -276,8 +279,11 @@ size_t fe_port_tcp_write(const uint8_t *data, size_t len) {
     espconn_regist_sentcb(&s_conn, tcp_sent_cb);
     s_sent_done = false;
     if (espconn_sent(&s_conn, (uint8_t *)data, len) != ESPCONN_OK) return 0;
-    while (!s_sent_done) os_delay_us(1000);
-    return len;
+    {
+        uint32_t tmo = 3000;   // 3s 超时防永久挂起
+        while (!s_sent_done && tmo-- > 0) os_delay_us(1000);
+    }
+    return s_sent_done ? len : 0;
 }
 
 int fe_port_tcp_read(uint8_t *buf, size_t len) {
